@@ -10,6 +10,4 @@ use Spatie\LaravelData\Resource as BaseResource;
 
 #[MapInputName(SnakeCaseMapper::class)]
 #[MapOutputName(CamelCaseMapper::class)]
-abstract class Resource extends BaseResource
-{
-}
+abstract class Resource extends BaseResource {}

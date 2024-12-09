@@ -3,7 +3,7 @@
 namespace App\Orchid\Screens\Player;
 
 use App\Containers\Player\Models\Player;
-use App\Containers\Trade\Data\Enums\Type;
+use App\Containers\Market\Data\Enums\Type;
 use Orchid\Screen\Screen;
 use Illuminate\Http\Request;
 use Orchid\Screen\Actions\Link;

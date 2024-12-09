@@ -1,8 +1,7 @@
-import { InertiaPageProps } from "@/shared/types/custom";
-import { usePage } from "@inertiajs/react";
+import usePage from "@/shared/hooks/usePage";
 
 export default function Logo() {
-    const { props } = usePage<InertiaPageProps>();
+    const { props } = usePage();
 
     return (
         <span className="text-foreground text-3xl">
@@ -14,8 +13,8 @@ export default function Logo() {
                 />
             ) : (
                 <>
-                    <span>affiliate</span>
-                    <strong className="bg-gradient-to-tr from-purple-300 to-purple-600 bg-clip-text text-transparent">pro</strong>
+                    <span>cs2</span>
+                    <strong className="title">market</strong>
                 </>
             )}
         </span>

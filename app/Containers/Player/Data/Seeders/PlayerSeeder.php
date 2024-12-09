@@ -18,7 +18,6 @@ class PlayerSeeder extends BaseSeeder
             Player::factory()
                 ->rich()
                 ->count(1)
-                ->hasItems(30)
                 ->create();
         }
     }

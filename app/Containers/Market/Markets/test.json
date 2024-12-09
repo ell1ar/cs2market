@@ -1,0 +1,31 @@
+{
+    "success": true,
+    "time": 1565103435,
+    "currency": "USD",
+    "items": {
+        "1434515088_0": {
+            "price": "0.50",
+            "buy_order": "0.10",
+            "avg_price": "0.74",
+            "popularity_7d": "47",
+            "market_hash_name": "Arcane Defiance Loading Screen",
+            "ru_name": "Загрузочный экран «Arcane Defiance»",
+            "ru_rarity": "Common",
+            "ru_quality": "Standard",
+            "text_color": "D2D2D2",
+            "bg_color": ""
+        },
+        "1479313949_0": {
+            "price": "0.60",
+            "buy_order": "0.10",
+            "avg_price": "0.94",
+            "popularity_7d": "13",
+            "market_hash_name": "Armor of Utter Eradication",
+            "ru_name": "Armor of Utter Eradication",
+            "ru_rarity": "Uncommon",
+            "ru_quality": "Standard",
+            "text_color": "D2D2D2",
+            "bg_color": ""
+        }
+    }
+}

@@ -9,7 +9,7 @@ type Props = {
 
 export default function Footer({ className }: Props) {
     return (
-        <footer className={cn(className, "w-full max-w-screen-xl mx-auto py-4 md:py-8")}>
+        <footer className={cn(className, "w-full max-w-6xl px-4 mx-auto py-4 md:py-8")}>
             <div className="sm:flex sm:items-center sm:justify-between">
                 <NextUILink
                     as={Link}

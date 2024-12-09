@@ -2,14 +2,14 @@
 
 namespace App\Containers\Player\UI\WEB\Controllers;
 
-use App\Containers\Player\Actions\PlayerItemSellAction;
-use App\Containers\Player\Actions\PlayerItemSellAllAction;
-use App\Containers\Player\Actions\PlayerItemTradeAction;
+use App\Containers\Player\Actions\PlayerMarketItemSellAction;
+use App\Containers\Player\Actions\PlayerMarketItemSellAllAction;
+use App\Containers\Player\Actions\PlayerMarketItemTradeAction;
 use App\Ship\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
-class PlayerItemController extends Controller
+class PlayerMarketItemController extends Controller
 {
     public function sell(Request $request)
     {
@@ -23,13 +23,13 @@ class PlayerItemController extends Controller
                 ->withInput();
         }
 
-        app(PlayerItemSellAction::class)->run($request->uniqid);
+        app(PlayerMarketItemSellAction::class)->run($request->uniqid);
         return redirect()->back()->withSuccess(__('Item sold'));
     }
 
     public function sellAll()
     {
-        app(PlayerItemSellAllAction::class)->run();
+        app(PlayerMarketItemSellAllAction::class)->run();
     }
 
     public function trade(Request $request)
@@ -44,6 +44,6 @@ class PlayerItemController extends Controller
                 ->withInput();
         }
 
-        app(PlayerItemTradeAction::class)->run($request->uniqid);
+        app(PlayerMarketItemTradeAction::class)->run($request->uniqid);
     }
 }

@@ -1,4 +1,4 @@
-import { useStoreModal } from "@/shared/store";
+import { useAuthStoreModal } from "@/modules/Auth/store";
 import { usePage } from "@inertiajs/react";
 import { Button, Modal, ModalBody, ModalContent, ModalFooter, ModalHeader } from "@nextui-org/react";
 import { FaSteam, FaTelegram, FaVk } from "react-icons/fa";
@@ -6,9 +6,9 @@ import { FaSteam, FaTelegram, FaVk } from "react-icons/fa";
 type Props = {};
 
 export default function ModalAuth({}: Props) {
-    const { social } = usePage<any>().props;
-    const { setIsModalAuthOpen } = useStoreModal((state) => state.actions);
-    const isModalAuthOpen = useStoreModal((state) => state.isModalAuthOpen);
+    const { auth } = usePage<any>().props;
+    const { setIsModalAuthOpen } = useAuthStoreModal((state) => state.actions);
+    const isModalAuthOpen = useAuthStoreModal((state) => state.isModalAuthOpen);
 
     return (
         <Modal
@@ -24,7 +24,7 @@ export default function ModalAuth({}: Props) {
 
                         <ModalBody>
                             <div className="flex flex-col w-full gap-1 font-bold">
-                                {social.isSteamAuth && (
+                                {auth.providers.steam && (
                                     <Button
                                         as={"a"}
                                         variant="solid"
@@ -36,7 +36,7 @@ export default function ModalAuth({}: Props) {
                                     </Button>
                                 )}
 
-                                {social.isTelegramAuth && (
+                                {auth.providers.tg && (
                                     <Button
                                         as={"a"}
                                         variant="solid"
@@ -48,7 +48,7 @@ export default function ModalAuth({}: Props) {
                                     </Button>
                                 )}
 
-                                {social.isVkAuth && (
+                                {auth.providers.vk && (
                                     <Button
                                         as={"a"}
                                         variant="solid"

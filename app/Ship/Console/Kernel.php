@@ -11,7 +11,7 @@ class Kernel extends ConsoleKernel
     {
         $schedule->command('exchange:update')->evenInMaintenanceMode()->everyTwoMinutes()->withoutOverlapping()->environments(['production']);
         $schedule->command('trade:check')->evenInMaintenanceMode()->everyTwoMinutes()->withoutOverlapping()->environments(['production']);
-        $schedule->command('item:update')->evenInMaintenanceMode()->runInBackground()->everyThreeMinutes()->withoutOverlapping()->environments(['production']);
+        $schedule->command('market-item:update')->evenInMaintenanceMode()->runInBackground()->everyThreeMinutes()->withoutOverlapping()->environments(['production']);
     }
 
     protected function commands(): void
@@ -41,5 +41,7 @@ class Kernel extends ConsoleKernel
                 continue;
             }
         }
+
+        $this->load(__DIR__ . '/Commands');
     }
 }

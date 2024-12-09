@@ -1,1 +1,0 @@
-export const ANIMATION_TRANSITION_MS = 5000;

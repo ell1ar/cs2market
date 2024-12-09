@@ -49,11 +49,9 @@ class Handler extends ExceptionHandler
     public function render($request, Throwable $e)
     {
         $response = parent::render($request, $e);
-
-        if ($e instanceof BaseException) return $response;
+        if ($e instanceof BaseException || app()->environment(['local', 'development'])) return $response;
 
         $status = $response->getStatusCode();
-
         if (! array_key_exists($status, $this->messages)) return $response;
 
         return Inertia::render('Error', [

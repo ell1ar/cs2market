@@ -16,7 +16,7 @@
     @vite(['resources/js/app.tsx', 'resources/css/app.css'])
 </head>
 
-<body class="font-sans dark antialiased">
+<body class="font-sans dark antialiased bg-background">
     @inertia
     {!! $page['props']['meta']['scripts'] ?? '' !!}
 </body>

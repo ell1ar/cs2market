@@ -13,10 +13,13 @@ class SettingsServiceProvider extends ServiceProvider
 {
     public function boot()
     {
-        if ($settings = app(GetSettingsTask::class)->run()) {
-            Config::set('services.steam.client_secret', $settings->data['social']['STEAM_CLIENT_SECRET'] ?? "");
-            Config::set('services.telegram.client_secret', $settings->data['social']['TELEGRAM_CLIENT_SECRET'] ?? "");
-            Config::set('services.vk.client_secret', $settings->data['social']['VK_CLIENT_SECRET'] ?? "");
+        try {
+            if ($settings = app(GetSettingsTask::class)->run()) {
+                Config::set('services.steam.client_secret', $settings->data['social']['STEAM_CLIENT_SECRET'] ?? "");
+                Config::set('services.telegram.client_secret', $settings->data['social']['TELEGRAM_CLIENT_SECRET'] ?? "");
+                Config::set('services.vk.client_secret', $settings->data['social']['VK_CLIENT_SECRET'] ?? "");
+            }
+        } catch (\Throwable $th) {
         }
 
         Settings::observe(SettingsObserver::class);

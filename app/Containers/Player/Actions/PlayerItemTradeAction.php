@@ -5,14 +5,14 @@ namespace App\Containers\Player\Actions;
 use App\Containers\ExchangeRate\Models\ExchangeRate;
 use App\Containers\Item\Tasks\GetItemByMarketHashNameTask;
 use App\Containers\MarketCSGO\Tasks\BuyForTask;
-use App\Containers\Player\Data\Enums\PlayerItemStatus;
+use App\Containers\Player\Data\Enums\PlayerMarketItemStatus;
 use App\Containers\Player\Tasks\GetAuthPlayerTask;
-use App\Containers\Trade\Data\Enums\Status as TradeStatus;
+use App\Containers\Market\Data\Enums\Status as TradeStatus;
 use App\Ship\Exceptions\BaseException;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 
-final class PlayerItemTradeAction
+final class PlayerMarketItemTradeAction
 {
     public function run(string $uniqid)
     {
@@ -22,7 +22,7 @@ final class PlayerItemTradeAction
 
             $player_item = $player->items()->ready()->where('uniqid', $uniqid)->lockForUpdate()->first();
             if (!$player_item) throw new BaseException(__('Item not found'));
-            $player_item->fill(['status' => PlayerItemStatus::TradeWait])->save();
+            $player_item->fill(['status' => PlayerMarketItemStatus::TradeWait])->save();
 
             if ($player->is_trade_limit) {
                 if ($player_item->price > $player->trade_limit) throw new BaseException(__('Trades are not available to you'));
@@ -30,7 +30,7 @@ final class PlayerItemTradeAction
                 $player->save();
             }
 
-            $item = app(GetItemByMarketHashNameTask::class)->run($player_item->market_hash_name);
+            $item = app(GetItemByMarketHashNameTask::class)->run($player_item->name);
             if (!$item) throw new BaseException(__('This item is temporarily unavailable for tradeal'));
             if ($item->price_market > $player_item->price)  throw new BaseException(__('The price of this item has changed a lot! Try waiting or selling and buying a new item!'));
 
@@ -43,7 +43,7 @@ final class PlayerItemTradeAction
 
         $exchange_rate_usd = ExchangeRate::USD()->first();
         $result = app(BuyForTask::class)->run([
-            'hash_name' => $trade->playerItem->market_hash_name,
+            'hash_name' => $trade->playerItem->name,
             'price' => $trade->playerItem->price * 100 * ($exchange_rate_usd->in_rub / $exchange_rate_usd->nominal),
             'custom_id' => $trade->custom_id,
             'partner' => $trade->playerItem->player->tradeLinkPartner,
@@ -52,7 +52,7 @@ final class PlayerItemTradeAction
 
         if (!$result['success']) {
             DB::transaction(function () use ($result, $trade) {
-                $trade->playerItem->fill(['status' => PlayerItemStatus::Ready])->save();
+                $trade->playerItem->fill(['status' => PlayerMarketItemStatus::Ready])->save();
                 $trade->fill(['status' => TradeStatus::Fail, 'result' => $result['msg']])->save();
             });
             throw new BaseException($result['msg']);
@@ -60,7 +60,7 @@ final class PlayerItemTradeAction
 
         if ($result['success']) {
             DB::transaction(function () use ($trade) {
-                $trade->playerItem->fill(['status' => PlayerItemStatus::TradeProccess])->save();
+                $trade->playerItem->fill(['status' => PlayerMarketItemStatus::TradeProccess])->save();
                 $trade->fill(['status' => TradeStatus::Proccessing, 'result' => __('Proccessing')])->save();
             });
         }

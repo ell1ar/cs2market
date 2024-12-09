@@ -2,7 +2,7 @@
 
 namespace App\Containers\Player\Data\Enums;
 
-enum PlayerItemStatus : int {
+enum PlayerMarketItemStatus : int {
     case Ready = 1;
     case Sell = 0;
     case Upgrade = 11;

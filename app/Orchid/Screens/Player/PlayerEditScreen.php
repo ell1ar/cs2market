@@ -4,7 +4,7 @@ namespace App\Orchid\Screens\Player;
 
 use App\Containers\Player\Models\Player;
 use App\Containers\Player\Tasks\GetPlayerByIdTask;
-use App\Containers\Trade\Data\Enums\Type;
+use App\Containers\Market\Data\Enums\Type;
 use Orchid\Screen\Fields\Picture;
 use Orchid\Screen\Fields\Switcher;
 use Orchid\Screen\Screen;

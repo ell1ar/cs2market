@@ -37,6 +37,7 @@ class Kernel extends HttpKernel
             \App\Ship\Http\Middleware\HandleInertiaRequests::class,
             \Illuminate\Http\Middleware\AddLinkHeadersForPreloadedAssets::class,
             \App\Ship\Http\Middleware\HandleInertiaRequests::class,
+            \App\Containers\Currency\Middleware\Currency::class,
         ],
 
         'api' => [

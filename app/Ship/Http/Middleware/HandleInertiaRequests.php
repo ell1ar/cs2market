@@ -40,18 +40,11 @@ class HandleInertiaRequests extends Middleware
     {
         $settings = app(GetSettingsTask::class)->run();
 
-        $meta = $settings->data['meta'];
-
-        $social = [
-            'isTelegramAuth' => (bool) $settings->data['social']['is_telegram_auth'] ?? null,
-            'isVkAuth' => (bool) $settings->data['social']['is_vk_auth'] ?? null,
-            'isSteamAuth' => (bool) $settings->data['social']['is_steam_auth'] ?? null,
-        ];
-
         return [
             ...parent::share($request),
-            'meta' => fn() => $meta,
-            'social' => fn() => $social,
+            'meta' => function () use ($settings) {
+                return $settings->data['meta'];
+            },
             'flash' => [
                 'error' => fn() => $request->session()->get('error'),
                 'msg' => fn() => $request->session()->get('msg'),
@@ -59,13 +52,26 @@ class HandleInertiaRequests extends Middleware
             ],
             'auth' => [
                 'player' => Auth::guard('players')->user() ?? null,
+                'providers' => [
+                    'tg' => (bool) $settings->data['social']['is_telegram_auth'] ?? null,
+                    'vk' => (bool) $settings->data['social']['is_vk_auth'] ?? null,
+                    'steam' => (bool) $settings->data['social']['is_steam_auth'] ?? null,
+                ]
             ],
-            'ziggy' => fn() => [
-                ...(new Ziggy())->toArray(),
-                'location' => $request->url(),
-            ],
+            'ziggy' => function () use ($request) {
+                return array_merge((new Ziggy)->toArray(), [
+                    'location' => $request->url(),
+                    'query' => $request->query()
+                ]);
+            },
             'locale' => function () {
                 return app()->getLocale();
+            },
+            'currency' => function () use ($request) {
+                return [
+                    'current' => $request->cookie('currency', 'USD'),
+                    'avaiableList' => config('currency.avaiable_list'),
+                ];
             },
         ];
     }

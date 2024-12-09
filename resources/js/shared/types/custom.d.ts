@@ -10,29 +10,58 @@ declare module "*.png" {
     export default value;
 }
 
-type UUID<T> = {
-    uid: number;
-} & T;
+declare global {
+    type UUID<T> = {
+        uuid: number;
+    } & T;
 
-type InertiaPageProps = {
-    meta: Record<string, any>; // Предположительно мета-данные, уточните тип при необходимости
-    social: Record<string, any>; // Данные для социальных сетей, уточните тип
-    flash: {
-        error?: string | null; // Сообщение об ошибке
-        msg?: string | null; // Общее сообщение
-        success?: string | null; // Сообщение об успехе
+    type InertiaPageProps = {
+        meta: Record<string, any>; // Предположительно мета-данные, уточните тип при необходимости
+        social: Record<string, any>; // Данные для социальных сетей, уточните тип
+        flash: {
+            error?: string | null; // Сообщение об ошибке
+            msg?: string | null; // Общее сообщение
+            success?: string | null; // Сообщение об успехе
+        };
+        auth: {
+            user: any;
+            player: IPlayer | null;
+        };
+        ziggy: {
+            defaults: Record<string, any>;
+            namedRoutes: Record<string, string>;
+            baseUrl: string;
+            baseProtocol: string;
+            baseDomain: string;
+            location: string;
+            query: Record<string, any>;
+        };
+        locale: string; // Текущая локаль приложения
+        currency: {
+            current: string;
+            avaiableList: string[];
+        };
     };
-    auth: {
-        user: any;
-        player: IPlayer | null;
+
+    type TPaginate<T> = {
+        current_page: number;
+        data: T[];
+        first_page_url: string;
+        from: number | null;
+        last_page: number;
+        last_page_url: string;
+        links: PaginateLink[];
+        next_page_url: string | null;
+        path: string;
+        per_page: number;
+        prev_page_url: string | null;
+        to: number | null;
+        total: number;
     };
-    ziggy: {
-        defaults: Record<string, any>;
-        namedRoutes: Record<string, string>;
-        baseUrl: string;
-        baseProtocol: string;
-        baseDomain: string;
-        location: string;
+
+    type PaginateLink = {
+        url: string | null;
+        label: string;
+        active: boolean;
     };
-    locale: string; // Текущая локаль приложения
-};
+}

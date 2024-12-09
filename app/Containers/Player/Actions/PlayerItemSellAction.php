@@ -2,12 +2,12 @@
 
 namespace App\Containers\Player\Actions;
 
-use App\Containers\Player\Data\Enums\PlayerItemStatus;
+use App\Containers\Player\Data\Enums\PlayerMarketItemStatus;
 use App\Containers\Player\Tasks\GetAuthPlayerTask;
 use App\Ship\Exceptions\BaseException;
 use Illuminate\Support\Facades\DB;
 
-final class PlayerItemSellAction
+final class PlayerMarketItemSellAction
 {
     public function run(string $uniqid)
     {
@@ -16,7 +16,7 @@ final class PlayerItemSellAction
             $player_item = $player->items()->ready()->where('uniqid', $uniqid)->lockForUpdate()->first();
             if (!$player_item) throw new BaseException(__('Item not found'));
 
-            $player_item->fill(['status' => PlayerItemStatus::Sell])->save();
+            $player_item->fill(['status' => PlayerMarketItemStatus::Sell])->save();
             $player->increment('balance', $player_item->price);
 
             return $player;

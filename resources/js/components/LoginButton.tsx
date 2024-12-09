@@ -1,10 +1,10 @@
-import { useStoreModal } from "@/shared/store";
+import { useAuthStoreModal } from "@/modules/Auth/store";
 import { Button } from "@nextui-org/react";
 
 type Props = {};
 
 export default function LoginButton({}: Props) {
-    const actions = useStoreModal((state) => state.actions);
+    const actions = useAuthStoreModal((state) => state.actions);
 
     return (
         <>

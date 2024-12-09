@@ -4,14 +4,14 @@ namespace App\Containers\Player\UI\API\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class PlayerItemResource extends JsonResource
+class PlayerMarketItemResource extends JsonResource
 {
     public function toArray($request)
     {
         return [
             'id' => $this->id,
             'price' => round($this->price, 2),
-            'marketHashName' => $this->item->market_hash_name,
+            'marketHashName' => $this->item->name,
             'quality' => $this->item->quality,
             'rarity' => $this->item->rarity,
             'uniqid' => $this->uniqid,

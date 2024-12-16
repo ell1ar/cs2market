@@ -16,8 +16,20 @@ class SettingsSeeder extends BaseSeeder
     {
         Settings::create([
             'data' => [
-                'api' => [
-                    'MARKET_API_KEY' => '',
+                'services' => [
+                    'marketcsgo' => [
+                        'MARKET_API_KEY' => null,
+                    ],
+                    'vkontakte' => [
+                        'VK_CLIENT_ID' => null,
+                        'VK_CLIENT_SECRET' => null,
+                    ],
+                    'steam' => [
+                        'STEAM_CLIENT_SECRET' => null,
+                    ],
+                    'telegram' => [
+                        'TELEGRAM_BOT_TOKEN' => null,
+                    ]
                 ],
                 'meta' => [
                     'head' => null,
@@ -33,12 +45,8 @@ class SettingsSeeder extends BaseSeeder
                 ],
                 'social' => [
                     'is_vk_auth' => false,
-                    'VK_CLIENT_ID' => null,
                     'is_steam_auth' => true,
-                    'VK_CLIENT_SECRET' => null,
                     'is_telegram_auth' => false,
-                    'TELEGRAM_BOT_TOKEN' => null,
-                    'STEAM_CLIENT_SECRET' => '',
                 ],
                 'wheel_promocode' => []
             ],

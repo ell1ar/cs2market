@@ -2,13 +2,20 @@
 
 namespace App\Containers\Market\Markets;
 
+use App\Containers\Market\Contracts\IMarketDeposit;
+use App\Containers\Market\Contracts\IMarket;
 use App\Containers\Market\Data\Enums\Market;
 use App\Containers\Market\Models\MarketItem;
 use App\Containers\Market\Tasks\GetQualityByNameTask;
 use Illuminate\Support\Facades\Http;
 
-class Skinvend implements IMarket
+class Skinvend implements IMarket, IMarketDeposit
 {
+    public function getType(): Market
+    {
+        return Market::Skinvend;
+    }
+
     public function updateMarketItems()
     {
         $items = Http::timeout(30)->withHeaders([
@@ -32,5 +39,25 @@ class Skinvend implements IMarket
             });
     }
 
-    public function buyFor() {}
+    public function deposit($params)
+    {
+        return Http::timeout(30)->withHeaders([
+            'apiKey' => config('markets.skinvend.api_key'),
+        ])->get('https://skinvend.io/v1/api/deposit', [
+            'deposit_id' => $params['deposit_id'],
+            'steam_id' => $params['steam_id'],
+        ])->throw()->collect();
+    }
+
+    public function trade($params)
+    {
+        return Http::timeout(30)->withHeaders([
+            'apiKey' => config('markets.skinvend.api_key'),
+        ])->get('https://skinvend.io/v1/api/inventory/trade', [
+            'app_id' => $params['app_id'],
+            'trade_id' => $params['trade_id'],
+            'trade_url' => $params['trade_url'],
+            'items_array' => $params['items_array'],
+        ])->throw()->collect();
+    }
 }

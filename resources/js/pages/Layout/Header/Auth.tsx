@@ -36,7 +36,7 @@ export default function Auth({ player }: Props) {
 
                     <DropdownMenu aria-label="Actions">
                         <DropdownItem textValue="Profile">
-                            <Link href={route("profile")}>
+                            <Link href={route("page.profile")}>
                                 <span className="flex gap-1 items-center">
                                     <FaUser />
                                     <span>Profile</span>

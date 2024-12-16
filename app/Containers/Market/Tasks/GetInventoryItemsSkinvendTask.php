@@ -9,7 +9,7 @@ final class GetInventoryItemsSkinvendTask implements IGetInventoryItemsTask
 {
     public function run(string $trade_link)
     {
-        return Cache::remember('inventory_items_' . $trade_link, 60 * 60, function () use ($trade_link) {
+        return Cache::remember('inventory_items_' . $trade_link, 60, function () use ($trade_link) {
             $info_trade_link = app(GetInfoFromTradeLinkTask::class)->run($trade_link);
             $steam_id = bcadd((string)$info_trade_link['partner'], '76561197960265728'); // 76561197960265728 — базовое значение Steam ID
 

@@ -1,5 +1,6 @@
 declare namespace App.Containers.Market.Data.Enums {
 export type Market = 'skinvend' | 'skinify' | 'skinsback' | 'market_csgo';
+export type MarketDepositStatus = 'success' | 'fail' | 'proccessing';
 export type MarketTradeStatus = 'traded' | 'wait' | 'fail' | 'proccessing';
 }
 declare namespace App.Containers.Market.Data.Resources {
@@ -9,6 +10,7 @@ icon: string;
 price: number;
 quality: string | null;
 tradable: boolean;
+instanceId: string;
 };
 export type LiveMarketTradeResource = {
 marketItem: App.Containers.Market.Data.Resources.MarketItemResource;
@@ -23,5 +25,19 @@ rarity: string | null;
 float: number | null;
 stickers: Array<any> | null;
 market: App.Containers.Market.Data.Enums.Market;
+};
+}
+declare namespace App.Containers.Player.Data.Resources {
+export type PlayerResource = {
+id: number;
+name: string;
+balance: number;
+image: string;
+tradeLink: string | null;
+};
+export type SafePlayerResource = {
+id: number;
+name: string;
+image: string | null;
 };
 }

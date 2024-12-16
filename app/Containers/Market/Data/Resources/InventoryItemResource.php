@@ -13,6 +13,7 @@ class InventoryItemResource extends Resource
         public string $icon,
         public float $price,
         public ?string $quality,
-        public bool $tradable
+        public bool $tradable,
+        public string $instanceId,
     ) {}
 }

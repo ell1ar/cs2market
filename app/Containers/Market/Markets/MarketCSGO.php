@@ -3,12 +3,18 @@
 namespace App\Containers\Market\Markets;
 
 use App\Containers\ExchangeRate\Models\ExchangeRate;
+use App\Containers\Market\Contracts\IMarket;
 use App\Containers\Market\Data\Enums\Market;
 use App\Containers\Market\Models\MarketItem;
 use App\Containers\Market\Tasks\GetRariryByNameTask;
 
 class MarketCSGO implements IMarket
 {
+    public function getType(): Market
+    {
+        return Market::MarketCSGO;
+    }
+
     public function updateMarketItems()
     {
         $exchange_rate_usd = ExchangeRate::USD()->first();

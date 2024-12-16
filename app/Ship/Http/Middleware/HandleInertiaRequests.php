@@ -2,6 +2,7 @@
 
 namespace App\Ship\Http\Middleware;
 
+use App\Containers\Player\Data\Resources\PlayerResource;
 use App\Containers\Settings\Tasks\GetSettingsTask;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -46,12 +47,12 @@ class HandleInertiaRequests extends Middleware
                 return $settings->data['meta'];
             },
             'flash' => [
-                'error' => fn() => $request->session()->get('error'),
-                'msg' => fn() => $request->session()->get('msg'),
-                'success' => fn() => $request->session()->get('success'),
+                'error' => $request->session()->get('error'),
+                'msg' => $request->session()->get('msg'),
+                'success' => $request->session()->get('success'),
             ],
             'auth' => [
-                'player' => Auth::guard('players')->user() ?? null,
+                'player' => Auth::guard('players')->user() ? PlayerResource::from(Auth::guard('players')->user()) : null,
                 'providers' => [
                     'tg' => (bool) $settings->data['social']['is_telegram_auth'] ?? null,
                     'vk' => (bool) $settings->data['social']['is_vk_auth'] ?? null,

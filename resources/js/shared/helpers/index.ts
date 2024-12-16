@@ -33,3 +33,8 @@ export function clipboard(text: string) {
     }
     document.body.removeChild(textArea);
 }
+
+export function roundLikePHP(num: number, dec: number) {
+    let num_sign = num >= 0 ? 1 : -1;
+    return parseFloat((Math.round(num * Math.pow(10, dec) + num_sign * 0.0001) / Math.pow(10, dec)).toFixed(dec));
+}

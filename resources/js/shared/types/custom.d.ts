@@ -25,7 +25,7 @@ declare global {
         };
         auth: {
             user: any;
-            player: IPlayer | null;
+            player: App.Containers.Player.Data.Resources.PlayerResource | null;
         };
         ziggy: {
             defaults: Record<string, any>;
@@ -50,7 +50,7 @@ declare global {
         from: number | null;
         last_page: number;
         last_page_url: string;
-        links: PaginateLink[];
+        links: TPaginateLink[];
         next_page_url: string | null;
         path: string;
         per_page: number;
@@ -59,7 +59,7 @@ declare global {
         total: number;
     };
 
-    type PaginateLink = {
+    type TPaginateLink = {
         url: string | null;
         label: string;
         active: boolean;

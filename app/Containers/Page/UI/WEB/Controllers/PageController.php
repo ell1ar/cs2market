@@ -2,13 +2,11 @@
 
 namespace App\Containers\Page\UI\WEB\Controllers;
 
-use App\Containers\Market\Tasks\GetMarketItemsTask;
 use App\Containers\Market\Data\Resources\InventoryItemResource;
 use App\Containers\Market\Data\Resources\MarketItemResource;
 use App\Containers\Market\Models\MarketItem;
 use App\Containers\Market\Tasks\IGetInventoryItemsTask;
 use App\Containers\Player\Tasks\GetAuthPlayerTask;
-use App\Containers\Player\UI\API\Resources\PlayerMarketItemResource;
 use App\Ship\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
@@ -35,18 +33,17 @@ class PageController extends Controller
             'trade_link' => 'nullable|string|regex:/^https:\/\/steamcommunity\.com\/tradeoffer\/new\/\?partner=\d+&token=[a-zA-Z0-9]+$/',
         ]);
 
+        $trade_link = $request->get('trade_link') ?? null;
+
         $inventory_items = [];
+        if (!is_null($trade_link)) {
+            $inventory_items = app(IGetInventoryItemsTask::class)->run($trade_link);
 
-        if (!is_null($request->get('trade_link'))) {
-            $inventory_items = app(IGetInventoryItemsTask::class)->run($request->get('trade_link'));
-
-            if (!is_null($request->get('name'))) {
+            if (!is_null($request->get('name')))
                 $inventory_items = $inventory_items->filter(fn($item) => stripos($item['name'], $request->get('name')) !== false)->values();
-            }
 
-            if (!is_null($request->get('sort_by')) && !is_null($request->get('sort_dir'))) {
+            if (!is_null($request->get('sort_by')) && !is_null($request->get('sort_dir')))
                 $inventory_items = $inventory_items->sortBy('price')->values();
-            }
         }
 
         return Inertia::render('Sell', [
@@ -76,8 +73,6 @@ class PageController extends Controller
     {
         $player = app(GetAuthPlayerTask::class)->run();
 
-        return Inertia::render('Profile', [
-            'paginate' => PlayerMarketItemResource::collection($player->marketItems()->latest()->paginate(10))
-        ]);
+        return Inertia::render('Profile', []);
     }
 }

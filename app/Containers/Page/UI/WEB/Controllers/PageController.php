@@ -71,8 +71,11 @@ class PageController extends Controller
 
     public function profile()
     {
-        $player = app(GetAuthPlayerTask::class)->run();
+        return Inertia::render('Profile');
+    }
 
-        return Inertia::render('Profile', []);
+    public function marketDeposit(Request $request)
+    {
+        return Inertia::render('Deposit', []);
     }
 }

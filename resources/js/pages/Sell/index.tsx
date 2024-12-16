@@ -40,6 +40,7 @@ export default function Sell({}: Props) {
 
                 <div className="flex flex-col items-center">
                     <h1 className="text-default-foreground text-4xl uppercase">{t("Sell skins CS2")}</h1>
+
                     <div className="grid grid-cols-12 gap-2 max-w-6xl mx-auto w-full">
                         <SellPanel
                             className="col-span-8"

@@ -15,6 +15,13 @@ instanceId: string;
 export type LiveMarketTradeResource = {
 marketItem: App.Containers.Market.Data.Resources.MarketItemResource;
 };
+export type MarketDepositResource = {
+uuid: string;
+data: any;
+market: App.Containers.Market.Data.Enums.Market;
+status: App.Containers.Market.Data.Enums.MarketDepositStatus;
+external_id: string;
+};
 export type MarketItemResource = {
 id: number;
 name: string;

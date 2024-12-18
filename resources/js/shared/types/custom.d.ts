@@ -23,6 +23,10 @@ declare global {
             msg?: string | null; // Общее сообщение
             success?: string | null; // Сообщение об успехе
         };
+        currency: {
+            current: string;
+            avaiableList: string[];
+        };
         auth: {
             user: any;
             player: App.Containers.Player.Data.Resources.PlayerResource | null;

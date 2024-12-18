@@ -3,6 +3,7 @@
 namespace App\Ship\Http\Middleware;
 
 use App\Containers\Player\Data\Resources\PlayerResource;
+use App\Containers\Currency\Tasks\GetCurrentCurrencyTask;
 use App\Containers\Settings\Tasks\GetSettingsTask;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -46,6 +47,10 @@ class HandleInertiaRequests extends Middleware
             'meta' => function () use ($settings) {
                 return $settings->data['meta'];
             },
+            'currency' => [
+                'current' => app(GetCurrentCurrencyTask::class)->run(),
+                'avaiableList' => config('currency.avaiable_list'),
+            ],
             'flash' => [
                 'error' => $request->session()->get('error'),
                 'msg' => $request->session()->get('msg'),
@@ -67,12 +72,6 @@ class HandleInertiaRequests extends Middleware
             },
             'locale' => function () {
                 return app()->getLocale();
-            },
-            'currency' => function () use ($request) {
-                return [
-                    'current' => $request->cookie('currency', 'USD'),
-                    'avaiableList' => config('currency.avaiable_list'),
-                ];
             },
         ];
     }

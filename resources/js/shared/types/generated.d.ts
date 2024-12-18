@@ -31,6 +31,7 @@ quality: string | null;
 rarity: string | null;
 float: number | null;
 stickers: Array<any> | null;
+classInstance: string;
 market: App.Containers.Market.Data.Enums.Market;
 };
 }

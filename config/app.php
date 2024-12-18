@@ -15,6 +15,8 @@ return [
 
     'name' => env('APP_NAME', 'Laravel'),
 
+    'currency' => 'USD',
+
     'available_locales' => [
         'en' => 'English',
         'ru' => 'Russia',

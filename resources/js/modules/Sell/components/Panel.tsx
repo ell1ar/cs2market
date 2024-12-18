@@ -1,4 +1,5 @@
 import Selectable from "@/components/Selectable";
+import Currency from "@/modules/Currency/components/Currency";
 import { TFormMarketSell } from "@/modules/Market/types";
 import { TFormPageSell } from "@/modules/Page/types";
 import { Props } from "@/pages/Sell";
@@ -101,7 +102,10 @@ export default function Panel({
 
                                                 <div className="flex flex-col truncate items-start mt-auto p-2 relative z-10">
                                                     <span className="text-xs font-bold">{item.name}</span>
-                                                    <span className="text-success font-bold text-sm">${item.price}</span>
+                                                    <Currency
+                                                        className="text-success font-bold text-sm"
+                                                        value={item.price}
+                                                    />
                                                 </div>
                                             </Selectable>
                                         ))}

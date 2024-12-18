@@ -1,4 +1,4 @@
-import CurrencySelect from "@/modules/Currency/components/Select";
+import Currency from "@/modules/Currency/components/Currency";
 import { TFormMarketSell } from "@/modules/Market/types";
 import { Props } from "@/pages/Sell";
 import { cn, roundLikePHP } from "@/shared/helpers";
@@ -32,10 +32,12 @@ export default function Sidebar({ className, formMarketSell }: { className?: str
             <CardBody>
                 <div className="flex text-foreground items-center gap-2 justify-between">
                     <p>
-                        Selected <strong className="text-secondary-600">{price}</strong> items for the amount
+                        Selected{" "}
+                        <strong className="text-secondary-600">
+                            <Currency value={price} />
+                        </strong>{" "}
+                        items for the amount
                     </p>
-                    <Divider orientation="vertical" />
-                    <CurrencySelect />
                 </div>
 
                 {auth.player ? (

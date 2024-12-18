@@ -1,6 +1,7 @@
 import { cn } from "@/shared/helpers";
 import { Card } from "@nextui-org/react";
 import ItemImage from "./ItemImage";
+import Currency from "@/modules/Currency/components/Currency";
 
 type Props = {
     className?: string;
@@ -16,7 +17,11 @@ export default function ItemCard({ className, marketItem }: Props) {
 
             <div className="flex flex-col text-start mt-auto p-2 w-full relative z-10">
                 <span className="text-xs font-bold truncate w-5/6">{marketItem.name}</span>
-                <span className="text-success font-bold text-sm">${marketItem.price}</span>
+
+                <Currency
+                    className="text-success font-bold text-sm"
+                    value={marketItem.price}
+                />
             </div>
         </Card>
     );

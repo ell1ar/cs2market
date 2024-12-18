@@ -18,6 +18,7 @@ class MarketItemResource extends Resource
         public ?string $rarity,
         public ?float $float,
         public ?array $stickers,
+        public string $classInstance,
         public Market $market
     ) {}
 }

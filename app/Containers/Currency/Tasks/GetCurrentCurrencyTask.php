@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Containers\Player\Tasks;
+namespace App\Containers\Currency\Tasks;
 
-use Illuminate\Support\Facades\Request;
+use App\Containers\Currency\Data\Repositories\CurrencyRepository;
 
 final class GetCurrentCurrencyTask
 {
-    public function run()
+    public function run(): string
     {
-        return Request::cookie('currency', 'USD');
+        return app(CurrencyRepository::class)->getCurrentCurrency();
     }
 }

@@ -1,4 +1,5 @@
 import Logo from "@/components/Logo";
+import CurrencySelect from "@/modules/Currency/components/Select";
 import Auth from "@/pages/Layout/Header/Auth";
 import Guest from "@/pages/Layout/Header/Guest";
 import { Link, usePage } from "@inertiajs/react";
@@ -28,7 +29,7 @@ export default function Header() {
                 className="hidden sm:flex gap-4"
                 justify="center"
             >
-                <NavbarItem value={"Продать скины"}>
+                <NavbarItem value={"Sell skins"}>
                     <NextUILink
                         as={Link}
                         color="foreground"
@@ -38,7 +39,7 @@ export default function Header() {
                     </NextUILink>
                 </NavbarItem>
 
-                <NavbarItem value={"Купить скины"}>
+                <NavbarItem value={"Buy skins"}>
                     <NextUILink
                         as={Link}
                         color="foreground"
@@ -49,7 +50,12 @@ export default function Header() {
                 </NavbarItem>
             </NavbarContent>
 
-            <NavbarContent justify="end">{!props.auth.player ? <Guest /> : <Auth player={props.auth.player} />}</NavbarContent>
+            <NavbarContent justify="end">
+                <NavbarItem value={"Currency"}>
+                    <CurrencySelect />
+                </NavbarItem>
+                <NavbarItem value={"Panel"}>{!props.auth.player ? <Guest /> : <Auth player={props.auth.player} />}</NavbarItem>
+            </NavbarContent>
         </Navbar>
     );
 }

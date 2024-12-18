@@ -1,6 +1,7 @@
 import usePage from "@/shared/hooks/usePage";
+import { router } from "@inertiajs/react";
 import { Select as BaseSelect, SelectItem } from "@nextui-org/react";
-import React, { ChangeEvent } from "react";
+import { ChangeEvent } from "react";
 
 type Props = {};
 
@@ -8,7 +9,7 @@ export default function Select({}: Props) {
     const { props } = usePage();
 
     const onChange = (e: ChangeEvent<HTMLSelectElement>) => {
-        console.log(e.target.value);
+        router.post(route("currency.set", { currency: e.target.value }));
     };
 
     return (

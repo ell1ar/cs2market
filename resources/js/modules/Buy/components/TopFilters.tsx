@@ -1,3 +1,4 @@
+import CurrencySelect from "@/modules/Currency/components/Select";
 import { TChangeQueryParamsFn, TQueryParams } from "@/modules/Filter/hooks/useQueryFilter";
 import { cn } from "@/shared/helpers";
 import { Image, Select, SelectItem } from "@nextui-org/react";
@@ -23,7 +24,7 @@ export default function TopFilters({ className, checkboxFiltersJson, queryParams
         );
 
     return (
-        <header className={cn(className, "grid grid-cols-10 gap-2 w-full")}>
+        <header className={cn(className, "grid grid-cols-11 gap-2 w-full")}>
             {checkboxFiltersJson?.weapons.map((weapon: any) => (
                 <Select
                     key={weapon.key}

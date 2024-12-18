@@ -3,6 +3,7 @@ import Items from "@/modules/Buy/components/Items";
 import SidebarFilters from "@/modules/Buy/components/SidebarFilters";
 import TopFilters from "@/modules/Buy/components/TopFilters";
 import { useQueryFilter } from "@/modules/Filter/hooks/useQueryFilter";
+import { useFormMarketBuy } from "@/modules/Market/hooks/useFormMarketBuy";
 import Layout from "@/pages/Layout";
 import { Link, router } from "@inertiajs/react";
 import { BreadcrumbItem, Breadcrumbs } from "@nextui-org/react";
@@ -18,6 +19,7 @@ export default function Buy({ checkboxFiltersJson, paginate }: Props) {
     const { t } = useTranslation();
     const [isLoading, setIsLoading] = useState(false);
     const { changeQueryParams, isDirty, queryParams } = useQueryFilter();
+    const formMarketBuy = useFormMarketBuy();
 
     useEffect(() => {
         if (isDirty)
@@ -40,7 +42,6 @@ export default function Buy({ checkboxFiltersJson, paginate }: Props) {
                     <BreadcrumbItem>
                         <Link href="/">{t("Home")}</Link>
                     </BreadcrumbItem>
-
                     <BreadcrumbItem>Buy skins</BreadcrumbItem>
                 </Breadcrumbs>
 
@@ -63,6 +64,7 @@ export default function Buy({ checkboxFiltersJson, paginate }: Props) {
 
                             <div className="col-span-8 flex flex-col gap-2">
                                 <Items
+                                    formMarketBuy={formMarketBuy}
                                     className="h-[500px]"
                                     marketItems={paginate.data}
                                 />

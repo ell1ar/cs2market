@@ -2,11 +2,13 @@
 
 namespace App\Containers\Page\UI\WEB\Controllers;
 
+use App\Containers\Currency\Tasks\GetCurrencyValueTask;
+use App\Containers\ExchangeRate\Models\ExchangeRate;
 use App\Containers\Market\Data\Resources\InventoryItemResource;
 use App\Containers\Market\Data\Resources\MarketItemResource;
 use App\Containers\Market\Models\MarketItem;
 use App\Containers\Market\Tasks\IGetInventoryItemsTask;
-use App\Containers\Player\Tasks\GetAuthPlayerTask;
+use App\Containers\Currency\Tasks\GetCurrentCurrencyTask;
 use App\Ship\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
@@ -44,6 +46,11 @@ class PageController extends Controller
 
             if (!is_null($request->get('sort_by')) && !is_null($request->get('sort_dir')))
                 $inventory_items = $inventory_items->sortBy('price')->values();
+
+            $inventory_items = $inventory_items->map(function ($item) {
+                $item['price'] = app(GetCurrencyValueTask::class)->run($item['price']);
+                return $item;
+            });
         }
 
         return Inertia::render('Sell', [
@@ -61,11 +68,18 @@ class PageController extends Controller
         if ($checkbox_filters_json === false) die('Error reading the JSON file');
         $checkbox_filters_json = json_decode($checkbox_filters_json, true);
         if ($checkbox_filters_json === null) die('Error decoding the JSON file');
-        $marketItems = MarketItem::paginate(30);
+        $paginate = MarketItem::paginate(30);
+
+        $items = collect($paginate->items())->map(function ($item) {
+            $item->price = app(GetCurrencyValueTask::class)->run($item->price);
+            return $item;
+        });
+
+        $paginate->setCollection($items);
 
         return Inertia::render('Buy', [
             'checkboxFiltersJson' => $checkbox_filters_json,
-            'paginate' => MarketItemResource::collect($marketItems)
+            'paginate' => MarketItemResource::collect($paginate)
         ]);
     }
 

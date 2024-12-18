@@ -1,11 +1,11 @@
-import { IPlayer } from "@/modules/Player/types";
+import Currency from "@/modules/Currency/components/Currency";
 import { Link } from "@inertiajs/react";
 import { Avatar, Dropdown, DropdownItem, DropdownMenu, DropdownTrigger, NavbarItem } from "@nextui-org/react";
-import { FaDollarSign, FaUser } from "react-icons/fa";
+import { FaUser } from "react-icons/fa";
 import { IoExit } from "react-icons/io5";
 
 type Props = {
-    player: IPlayer;
+    player: App.Containers.Player.Data.Resources.PlayerResource;
 };
 
 export default function Auth({ player }: Props) {
@@ -27,8 +27,10 @@ export default function Auth({ player }: Props) {
                             <div className="flex flex-col">
                                 <p className="text-white text-sm">{player.name}</p>
                                 <small className="text-white inline-flex items-center">
-                                    <FaDollarSign className="text-success" />
-                                    <span>{player.balance}</span>
+                                    <Currency
+                                        className="text-success"
+                                        value={player.balance}
+                                    />
                                 </small>
                             </div>
                         </div>

@@ -2,7 +2,7 @@
 
 namespace App\Containers\Currency\UI\WEB\Controllers;
 
-use App\Containers\Player\Tasks\SetCurrentCurrencyTask;
+use App\Containers\Currency\Actions\SetCurrencyAction;
 use App\Ship\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
@@ -18,7 +18,7 @@ class CurrencyController extends Controller
             return redirect()->back()->with(['error' => __('Currency not found')]);
         }
 
-        app(SetCurrentCurrencyTask::class)->run($request->currency);
+        app(SetCurrencyAction::class)->run($request->currency);
         return redirect()->back();
     }
 }
